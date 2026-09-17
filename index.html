@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#a87c48">
+  <meta name="description" content="Jogo de cartas de conhecimentos gerais com 30 perguntas. Projeto de Vida.">
+  <title>Conhecimentos Gerais — Projeto de Vida</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,700&family=Caveat:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Material escolar espalhado pela mesa (apenas decoração) -->
+  <div class="mesa-decor" aria-hidden="true">
+    <div class="deco lapis"></div>
+    <div class="deco borracha"></div>
+    <div class="deco clipe"></div>
+    <div class="deco post-it">30<br>cartas</div>
+  </div>
+
+  <main class="mesa">
+
+    <!-- ============ TELA 1: INICIAL ============ -->
+    <section id="tela-inicial" class="tela tela-inicial ativa">
+      <div class="miolo-inicial">
+        <p class="etiqueta">Projeto de Vida</p>
+        <h1 class="titulo-jogo">Conhecimentos<br>Gerais</h1>
+        <p class="subtitulo">Trinta cartas, trinta perguntas</p>
+
+        <div class="preview-mesa" aria-hidden="true">
+          <div class="preview-pilha"><span></span><span></span><span></span></div>
+          <div class="preview-caderno"></div>
+        </div>
+
+        <p class="descricao">
+          Puxe uma carta da pilha, leia a pergunta e responda no caderno.
+          Cada acerto vale um ponto.
+        </p>
+
+        <ul class="regras" role="list">
+          <li>30 cartas por partida</li>
+          <li>4 alternativas em cada carta</li>
+          <li>As cartas vêm embaralhadas</li>
+        </ul>
+
+        <button id="btn-comecar" class="botao botao-primario">Puxar a primeira carta</button>
+      </div>
+    </section>
+
+    <!-- ============ TELA 2: JOGO ============ -->
+    <section id="tela-jogo" class="tela tela-jogo">
+
+      <header class="cabecalho-jogo">
+        <div class="cabecalho-topo">
+          <span class="cabecalho-contador" id="contador-perguntas">Carta 1 de 30</span>
+          <span class="cabecalho-pontos">
+            <span class="rotulo-pontos">Pontos</span>
+            <strong id="pontos-atual">0</strong>
+          </span>
+        </div>
+        <div class="barra-progresso-container"
+             role="progressbar"
+             aria-label="Progresso do jogo"
+             aria-valuemin="0"
+             aria-valuemax="30"
+             aria-valuenow="0"
+             id="barra-progresso-wrap">
+          <div class="barra-progresso-preenchida" id="barra-progresso"></div>
+        </div>
+      </header>
+
+      <div class="area-jogo">
+
+        <!-- ---- Pilha de cartas ---- -->
+        <div class="pilha-wrapper">
+          <div class="pilha" id="pilha">
+            <div class="carta-verso carta-verso-4" aria-hidden="true"></div>
+            <div class="carta-verso carta-verso-3" aria-hidden="true"></div>
+            <div class="carta-verso carta-verso-2" aria-hidden="true"></div>
+            <div class="carta-verso carta-verso-1" aria-hidden="true"></div>
+
+            <article class="carta" id="carta">
+              <div class="carta-tags">
+                <span class="carta-tema" id="carta-tema">Geografia</span>
+                <span class="carta-nivel" id="carta-nivel">fácil</span>
+              </div>
+              <h2 class="carta-pergunta" id="carta-pergunta">Carregando pergunta...</h2>
+              <span class="carta-rodape" id="carta-numero">carta 1</span>
+            </article>
+          </div>
+          <p class="pilha-restantes" id="pilha-restantes">29 cartas na pilha</p>
+        </div>
+
+        <!-- ---- Caderno de respostas ---- -->
+        <div class="caderno-wrapper">
+          <div class="caderno">
+            <div class="espiral" aria-hidden="true"></div>
+
+            <div class="caderno-folha">
+              <p class="caderno-titulo">Minha resposta</p>
+
+              <div class="caderno-linhas" id="lista-opcoes"><!-- via JS --></div>
+
+              <p class="mensagem-aviso" id="mensagem-aviso" role="status"></p>
+              <div class="feedback" id="feedback" role="status"></div>
+
+              <button id="btn-responder" class="botao botao-primario botao-caderno">Confirmar resposta</button>
+              <button id="btn-proxima" class="botao botao-secundario botao-caderno oculto">Puxar próxima carta</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ============ TELA 3: FINAL ============ -->
+    <section id="tela-final" class="tela tela-final">
+      <div class="miolo-final">
+        <p class="etiqueta">Pilha vazia</p>
+        <h2 class="titulo-final">Fim do jogo</h2>
+
+        <div class="boletim">
+          <div class="boletim-topo">
+            <span class="boletim-materia">Conhecimentos Gerais</span>
+            <span class="boletim-data" id="boletim-data"></span>
+          </div>
+
+          <span class="resultado-numero">
+            <span id="pontuacao-final">0</span><span class="resultado-total">/30</span>
+          </span>
+          <span class="resultado-label">acertos</span>
+
+          <p class="resultado-mensagem" id="mensagem-final"></p>
+          <p class="resultado-detalhe" id="detalhe-final"></p>
+        </div>
+
+        <button id="btn-jogar-novamente" class="botao botao-primario">Embaralhar e jogar de novo</button>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
